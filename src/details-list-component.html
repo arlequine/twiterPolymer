@@ -1,0 +1,84 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="details-list-component">
+    <template>
+        <style>
+            paper-card{
+                width: 70%;
+                margin: 10px auto;
+                display: grid
+            }
+        </style>
+        <paper-card image="">
+            <div class="card-content">
+                <div class="cafe-header">
+                    <h2> User 1</h2>
+                <div class="cafe-location cafe-light">
+                    <iron-icon icon="communication:location-on"></iron-icon>
+                    <span>250ft</span>
+                </div>
+                </div>
+                <div class="cafe-rating">
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                </div>
+                <p>$・Italian, Cafe</p>
+                <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+            </div>
+            <div class="card-actions">
+                <div class="horizontal justified">
+                    <paper-icon-button icon="icons:event"></paper-icon-button>
+                    <paper-button>5:30PM</paper-button>
+                    <paper-button>7:30PM</paper-button>
+                    <paper-button>9:00PM</paper-button>
+                    <paper-button class="cafe-reserve">Reserve</paper-button>
+                </div>
+            </div>
+        </paper-card>
+        <paper-card image="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-card/v2.1.0/paper-card/demo/donuts.png">
+            <div class="card-content">
+                <div class="cafe-header">Cafe Basilico
+                <div class="cafe-location cafe-light">
+                    <iron-icon icon="communication:location-on"></iron-icon>
+                    <span>250ft</span>
+                </div>
+                </div>
+                <div class="cafe-rating">
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                </div>
+                <p>$・Italian, Cafe</p>
+                <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+            </div>
+            <div class="card-actions">
+                <div class="horizontal justified">
+                    <paper-icon-button icon="icons:event"></paper-icon-button>
+                    <paper-button>5:30PM</paper-button>
+                    <paper-button>7:30PM</paper-button>
+                    <paper-button>9:00PM</paper-button>
+                    <paper-button class="cafe-reserve">Reserve</paper-button>
+                </div>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        (function detailsListComponent(customElements) {
+        'use strict';
+        class DetailsListComponent extends Polymer.Element{
+            static get is() { return 'details-list-component' };
+            static get properties() {
+                return {
+                    prop: String
+                }
+            }
+        }
+        customElements.define(DetailsListComponent.is, DetailsListComponent);
+        })(window.customElements);
+    </script>
+</dom-module>
