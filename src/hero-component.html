@@ -1,0 +1,70 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-image/index.html">
+<link rel="import" href="../src/login-component.html">
+<dom-module id="hero-component">
+  <template>
+    <style>
+    :host {
+      --card-color-main: #68cbcb;
+      --text-color-main: #ffffff;
+      --login-color: #072146;
+      -
+    }
+      .container {
+        display: flex;
+        grid-template-columns: 1fr 1fr;
+        margin: 0 auto;
+        width: 80%;
+        flex-direction: row;
+        justify-content: center;
+        text-align:center;
+      }
+      .card {
+        background-color: var(--card-color-main);
+        position: relative;
+        color: var(--text-color-main);
+      }
+      .login-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: var(--login-color);
+        position: relative;
+        color: var(--text-color-main);
+        width: 50%;
+      }
+      iron-input input {
+        color: #ffffff;
+      }
+    </style>
+    <div class="container">
+      <div class="card">
+        <h2>Rgistrate Hoy</h2>
+        <iron-image src="./img/navesita02.png" alt="navesita" style="width:500px; height:600px;" sizing="contain"></iron-image>
+      </div>
+      <div class="login-content">
+        <h1>Sign In</h1>
+        <login-component class="login"></login-component>
+      </div>
+    </div>
+  </template>
+  <script>
+    (function heroComponent(customElements) {
+      'use strict';
+      class HeroComponent extends Polymer.Element{
+        static get is() {return 'hero-component'};
+        static get properties() {
+          return {
+            prop: String
+          }
+        }
+      }
+      customElements.define(HeroComponent.is, HeroComponent)
+    })(window.customElements);
+  </script>
+</dom-module>

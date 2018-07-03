@@ -1,0 +1,57 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="login-component">
+  <template>
+    <style>
+    :host {
+      width: 80%;
+      margin: 0 auto;
+    }
+    form {
+      width: 80%;
+      margin: 0 auto;
+    }
+    paper-button {
+      background-color: #2dcdcd;
+    }
+    </style>
+    <form is="iron-form" id="form" method="post" action="/form/handler">
+      <form class="" action="/" method="get">
+        <label for="input-login">User</label>
+        <paper-input class="input-login" label="user" required>
+          <iron-icon icon="icons:account-box" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input class="input-login" label="email" required>
+          <label for="input-login">Email</label>
+          <iron-icon icon="mail" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input class="input-login" label="Password" required>
+          <label for="input-login">Password</label>
+          <iron-icon icon="icons:lock" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-button raised onclick=""><iron-icon icon="icons:arrow-forward
+"></iron-icon>Login</paper-button>
+      </form>
+    </form>
+  </template>
+  <script>
+    (function loginComponent(customElements) {
+      'use strict';
+      class LoginComponent extends Polymer.Element {
+        static get is() {return 'login-component'};
+        static get properties() {
+          return {
+            prop: String
+          }
+        }
+      }
+      customElements.define(LoginComponent.is, LoginComponent);
+    })(window.customElements);
+  </script>
+</dom-module>
