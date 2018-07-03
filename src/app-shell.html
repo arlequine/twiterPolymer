@@ -1,23 +1,24 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<link rel="import" href="./hero-component.html">
 <link rel="import" href="details-info-component.html">
 <link rel="import" href="details-list-component.html">
 
 <dom-module id="app-shell">
   <template>
     <style>
+      *{
+        box-sizing: border-box;
+      }
       #main-container{
         display: grid;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        color: #404040;
+        color: #343434;
         font-size: 14px;
         font-weight: 300;
         line-height: 22px;
         letter-spacing: .4px;
-        background: #eee;
-        margin: 20px;
+        background: #f3f3f3;
         grid-template-columns: 3fr 1fr;
       }
       .card {
@@ -28,6 +29,7 @@
         position: relative;
         margin-bottom: 50px;
         transition: all .2s ease-in-out;
+        background: #eee;
       }
       .card:hover {
         /*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
@@ -82,7 +84,6 @@
 
       }
     </style>
-    <h1>Hola</h1>
     <div id="main-container">
       <details-info-component class="card"></details-info-component>
       <details-list-component class="card"></details-list-component>
