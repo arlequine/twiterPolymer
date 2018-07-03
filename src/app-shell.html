@@ -1,11 +1,21 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
+<link rel="import" href="details-component.html">
+<link rel="import" href="details-component.html">
 
 <dom-module id="app-shell">
   <template>
     <style>
+      #main-container{
+        display: grid;
+      }
     </style>
     <h1>Hola</h1>
+    <div id="main-container">
+      <details-component></details-component>
+      <detail-list></detail-list>
+    </div>
   </template>
   <script>
     (function appShell(customElements) {

@@ -1,7 +1,8 @@
 {
   "name": "polymer-twiter",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "paper-card": "PolymerElements/paper-card#^2.1.0"
   },
   "devDependencies": {
     "web-componentsjs": "webcomponents/webcomponentsjs#^1.0.0"
