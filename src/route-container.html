@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="./login-component.html">
+
+<dom-module id="route-container">
+  <template>
+    <style>
+
+    </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}">
+    </app-route>
+    <iron-pages selected="[[page]]" attr-for-selected="page" fallback-selection="login">
+      <section page="login">
+          <login-component session="{{session}}" route="{{routeData}}" ></login-component>
+      </section>
+      <section page="posts">
+          <h1>post</h1>
+          <app-shell></app-shell>
+      </section>
+      </section>
+    </iron-pages>
+  </template>
+  <script>
+    (function routeContainer(customElements) {
+      'use strict';
+      class RouteContainer extends Polymer.Element {
+        static get is() {return 'route-container'}
+        static get properties() {
+          return {
+            session: Boolean,
+            routeData: Object
+          }
+        }
+        static get observers(){
+          return [
+            '_observerPage(routeData.page)'
+          ]
+        }
+        _observerPage(page) {
+          console.log(this.session);
+          if (this.session) {
+            if (page) this.page = page;
+              else this.page = 'posts';
+          } else this.page = 'login';
+        }
+      }
+      customElements.define(RouteContainer.is, RouteContainer);
+    })(window.customElements);
+  </script>
+</dom-module>
