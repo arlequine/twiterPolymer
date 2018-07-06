@@ -8,7 +8,9 @@
 <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/d2l-alert/d2l-alert.html">
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 <dom-module id="login-component">
   <template>
     <style>
@@ -17,6 +19,8 @@
       --text-color-main: #ffffff;
       --login-color: #072146;
       --main-color: #5bbeff;
+      --bgd-error: #f8d7da;
+      --error-text: #721c24;
       /* Input foreground color */
       --paper-input-container-input-color: #fff;
       width: 80%;
@@ -55,6 +59,24 @@
       color: var(--text-color-main);
       width: 50%;
     }
+    paper-progress.slow {
+     --paper-progress-indeterminate-cycle-duration: 20s;
+    }
+    paper-progress.blue {
+      --paper-progress-active-color: var(--paper-light-blue-500);
+      --paper-progress-secondary-color: var(--paper-light-blue-100);
+    }
+    paper-progress{
+        width: 100%;
+    }
+    d2l-alert {
+      background-color: var(--bgd-error);
+      color: var(--error-text);
+    }
+    d2l-alert > button {
+      background-color: var(--bgd-error);
+      color: var(--error-text);
+    }
     </style>
     <div class="container">
       <div class="card">
@@ -66,7 +88,7 @@
         <div class="login">
           <form is="iron-form" id="formLogin" method="post" action="/form/handler">
             <form class="">
-              <paper-input class="input-login" auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value='{{email}}' label="email" required>
+              <paper-input class="input-login" error-message="please type email correct" auto-validate pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value='{{email}}' label="email" required>
                 <label for="input-login">Email</label>
                 <iron-icon icon="mail" slot="prefix"></iron-icon>
               </paper-input>
@@ -77,21 +99,19 @@
               <paper-button raised on-click="submit">
                 Login<iron-icon icon="icons:arrow-forward"></iron-icon>
               </paper-button>
+              <template is="dom-if" if="[[loading]]">
+                <paper-progress  indeterminate class="slow blue" value="10"></paper-progress>
+              </template>
+              <template is="dom-if" if="[[error]]" restamp="true">
+                <d2l-alert type="error" has-close-button>
+                  incorrect username or password
+                </d2l-alert>
+              </template>
             </form>
           </form>
         </div>
       </div>
     </div>
-      <iron-ajax
-      id="submitLogin"
-      url="https://posts-services.herokuapp.com/login"
-      method="POST"
-      body='{{bodyPost}}'
-      handle-as="json"
-      on-response="handleResponse"
-      debounce-duration="300"
-      loading=""
-      ></iron-ajax>
   </template>
   <script>
     (function loginComponent(customElements) {
@@ -119,18 +139,35 @@
           return { 'email': email, 'password': password }
         }
         handleResponse(response) {
+
           if (response) {
+            //console.info(this);
             setTimeout(() =>{
-              this.set('session', true);
+            }, 5000)
+          }
+        }
+        getActive(users) {
+          //console.log(users);
+          for( let user of users) {
+            if(user && user.email == this.email && user.password == this.password) {
+              console.log(user);
               localStorage.email = this.email;
+              localStorage.password = this.password;
+              this.set('session', true);
               this.set('route.page', 'posts');
-            }, 1000)
+            }else {
+              this.set('loading', false);
+              this.set('error', true);
+            }
           }
         }
         submit(event) {
-          console.log('------');
-          this.handleResponse(true);
+          this.set('loading', true);
+          fetch('https://posts-services.herokuapp.com/users')
+          .then(resp => resp.json())
+          .then(users => this.getActive(users));
         }
+
       }
       customElements.define(LoginComponent.is, LoginComponent);
     })(window.customElements);
