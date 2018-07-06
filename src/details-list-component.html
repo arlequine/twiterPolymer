@@ -49,7 +49,7 @@
         </style>
         <template is="dom-repeat" items="{{data}}">
             <template is="dom-if" if="[[item.name]]">
-                <paper-card image="" on-click="change__profile" posts="[[item.posts]]" id="details" >
+                <paper-card image="" on-click="_change__profile" posts="[[item.posts]]" id="details" >
                     <div class="card-content">
                         <div class="header">
                             <img src="http://www.dipotepede.org/wp-content/uploads/2016/06/Trainer.jpg" alt="" class="imgBorder">
@@ -84,21 +84,31 @@
                     userPosts: {
                         type: Array,
                         notify: true
+                    },
+                    Backgrounds:{
+                        type: Array,
+                        value: ['cdmx.jpeg', 'zcdmx.jpg', 'acdmx.jpg']
                     }
                 }
             }
 
-            change__profile(event){
-                console.log(this);
+            _change__profile(event){
+                //console.log(this);
                 console.log(event.currentTarget);
                     const profile = this.shadowRoot.querySelector('#details');
-                    console.log(profile);
+                    //console.log(profile);
                     profile.posts = event.currentTarget.posts;
-                    console.log(event.currentTarget.posts);
+                    //console.log(event.currentTarget.posts);
                     this.set('userPosts', event.currentTarget.posts);
+
                     //profile.postsTitle = event.target.posts[0].title;
                     /* profile.address = event.target.address;
                     profile.picture = event.target.picture;  */
+            }
+            _randomStars() {
+                const redStars = parseInt(Math.random() * 5);
+                console.log(this.Backgrounds[randomBg]);
+                return `/img/${this.Backgrounds[randomBg]}`;
             }
             
         }

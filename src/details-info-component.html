@@ -129,7 +129,27 @@
             }
         </style>
         <template is="dom-repeat" items="[[postsUser]]">
-            <p>[[item.body]]</p>
+            <paper-card>
+                    <div class="post-module">
+                            <div class="thumbnail">
+                                <div class="date" style="display: none;">
+                                    <div class="day"> </div>
+                                    <div class="month">Mar</div>
+                                </div>
+                                <img src$="[[random()]]">
+                            </div>
+                                <!-- Post Content-->
+                            <div class="post-content">
+                                <div class="category">[[_formatDate(item.date)]]</div>
+                                    <h1 class="title">[[item.title]]</h1>
+                                    <p class="description" style="display: none; height: 100px; opacity: 1;">[[item.body]]</p>
+                                    <div class="post-meta card-actions">
+                                        <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
+                                        <span class="comments"><iron-icon class="star" icon="question-answer"></iron-icon><a href="#"> 39 comments</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                </paper-card>
         </template>
         <!-- <template is="dom-repeat" items="{{data}}" as="user">
             <h1>First name: <span>{{user.name}}</span></h1>
@@ -172,24 +192,33 @@
                     random: {
                         type: Function
                     },
-                    postsUser: Array,
+                    postsUser: {
+                        type: Array,
+                        //observer: 'random'
+                    },
                     Backgrounds:{
                         type: Array,
-                        values: ['cdmx.jpeg', 'zcdmx.jpg', 'acdmx.jpg']
+                        value: ['cdmx.jpeg', 'zcdmx.jpg', 'acdmx.jpg']
                     }
                 }
             }
             random() {
                 const randomBg = parseInt(Math.random() * 3);
-                return Backgrounds.values[randomBg];
-                console.log(Backgrounds.values[randomBg]);
+                //console.log(this.Backgrounds[randomBg]);
+                return `/img/${this.Backgrounds[randomBg]}`;
             }
-
+            _formatDate(date){
+                //console.log(date);
+                let year = date.substr(0,4);
+                let month = date.substr(5,2);
+                let day = date.substr(8,2)
+                
+                let full = `${day}/${month}/${year}`;
+                return full;
+            }
         }
         customElements.define(DetailsInfoComponent.is, DetailsInfoComponent);
         })(window.customElements);
 
-        const backGroundChoice = random();
-	    console.log(backGroundChoice);
     </script>
 </dom-module>
