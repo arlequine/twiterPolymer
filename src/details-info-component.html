@@ -96,7 +96,7 @@
                 background: #FFFFFF;
                 width: 100%;
                 padding: 20px;
-                -webkti-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
                 -webkit-transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
@@ -128,84 +128,37 @@
                 text-decoration: none;
             }
         </style>
-                <template is="dom-repeat" items="{{data}}" as="user">
-                        <h1>First name: <span>{{user.name}}</span></h1>
-                        <template is="dom-repeat" items="{{user.posts}}" as="posts" >
-                            <paper-card>
-                                <div class="post-module">
-                                        <div class="thumbnail">
-                                            <div class="date">
-                                                <div class="day">27</div>
-                                                <div class="month">Mar</div>
-                                            </div>
-                                            <img src="/img/cdmx.jpeg">
-                                        </div>
-                                            <!-- Post Content-->
-                                        <div class="post-content">
-                                            <div class="category">{{posts.date}}</div>
-                                                <h1 class="title">{{posts.title}}</h1>
-                                                <p class="description" style="display: none; height: 100px; opacity: 1;">
-                                                    {{posts.body}}</p>
-                                                <div class="post-meta card-actions">
-                                                    <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
-                                                    <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </paper-card>
-                        </template>
-                </template>
-
-        <paper-card >
-            <div class="post-module">
-                    <div class="thumbnail">
-                        <div class="date">
-                            <div class="day">27</div>
-                            <div class="month">Mar</div>
-                        </div>
-
-                        <img src="/img/zcdmx.jpg">
-                    </div>
-                        <!-- Post Content-->
-                    <div class="post-content">
-                        <div class="category">Category</div>
-                            <h1 class="title">City Lights in New York</h1>
-                            <h2 class="sub_title">The city that never sleeps.</h2>
-                            <p class="description" style="display: none; height: 100px; opacity: 1;">
-                                New York, the largest city in the U.S., is an architectural marvel with plenty of 
-                                historic monuments, magnificent buildings and countless dazzling skyscrapers.</p>
-                            <div class="post-meta card-actions">
-                                <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
-                                <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
+        <template is="dom-repeat" items="[[postsUser]]">
+            <p>[[item.body]]</p>
+        </template>
+        <!-- <template is="dom-repeat" items="{{data}}" as="user">
+            <h1>First name: <span>{{user.name}}</span></h1>
+            <template is="dom-repeat" items="{{user.posts}}" as="posts" >
+                <paper-card>
+                    <div class="post-module">
+                            <div class="thumbnail">
+                                <div class="date">
+                                    <div class="day">27</div>
+                                    <div class="month">Mar</div>
+                                </div>
+                                <img src="/img/[[properties.random]]">
                             </div>
-                        </div>
-                    </div>
-        </paper-card>
-        <paper-card>
-            <!-- Thumbnail-->
-            <div class="post-module">
-                <div class="thumbnail">
-                    <div class="date">
-                        <div class="day">27</div>
-                        <div class="month">Mar</div>
-                    </div>
-                    <img src="/img/acdmx.jpg">
-                </div>
-                    <!-- Post Content-->
-                <div class="post-content">
-                    <div class="category">Photos</div>
-                        <h1 class="title">City Lights in New York</h1>
-                        <h2 class="sub_title">The city that never sleeps.</h2>
-                        <p class="description" style="display: none; height: 100px; opacity: 1;">
-                            New York, the largest city in the U.S., is an architectural marvel with plenty of 
-                            historic monuments, magnificent buildings and countless dazzling skyscrapers.</p>
-                        <div class="post-meta card-actions">
-                            <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
-                            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
-                        </div>
-                    </div>
-                </div>
-        </paper-card>
+                                <!-- Post Content-->
+                            <!-- <div class="post-content">
+                                <div class="category">{{posts.date}}</div>
+                                    <h1 class="title">{{posts.title}}</h1>
+                                    <p class="description" style="display: none; height: 100px; opacity: 1;">
+                                        {{posts.body}}</p>
+                                    <div class="post-meta card-actions">
+                                        <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
+                                        <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                </paper-card>
+            </template>
+        </template> --> 
+        <paper-card >
     </template>
     <script>
         (function detailsInfoComponent(customElements) {
@@ -215,11 +168,28 @@
             static get properties() {
                 return {
                     prop: String,
-                    data:  Object
+                    data:  Object,
+                    random: {
+                        type: Function
+                    },
+                    postsUser: Array,
+                    Backgrounds:{
+                        type: Array,
+                        values: ['cdmx.jpeg', 'zcdmx.jpg', 'acdmx.jpg']
                     }
+                }
             }
+            random() {
+                const randomBg = parseInt(Math.random() * 3);
+                return Backgrounds.values[randomBg];
+                console.log(Backgrounds.values[randomBg]);
+            }
+
         }
         customElements.define(DetailsInfoComponent.is, DetailsInfoComponent);
         })(window.customElements);
+
+        const backGroundChoice = random();
+	    console.log(backGroundChoice);
     </script>
 </dom-module>

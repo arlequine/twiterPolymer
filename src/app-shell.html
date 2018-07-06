@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="/twiterPolymer/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="details-info-component.html">
 <link rel="import" href="details-list-component.html">
 
@@ -95,8 +95,8 @@
 		</iron-ajax>
 
 		<div id="main-container">
-			<details-info-component id="detailsInfo" data="[[postResponse]]" class="card"></details-info-component>
-			<details-list-component data="[[postResponse]]" class="card" on-click="change__profile"></details-list-component>
+			<details-info-component id="detailsInfo" class="card" posts-user="[[postsUser]]"></details-info-component>
+			<details-list-component data="[[postResponse]]" class="card" user-posts="{{postsUser}}"></details-list-component>
 			
 
 		</div>
@@ -108,18 +108,18 @@
 				static get is() { return 'app-shell' };
 				static get properties() {
 					return {
-						prop: String
+						prop: String,
+						postsUser: {
+							type: Array,
+							observer: 'oifsdff'
+						}
 
 					}
 				}
-				change__profile(event){
-						const profile = this.$.detailsInfo;
-						console.log(profile);
-						profile.posts = event.target.posts;
-						profile.postsTitle = event.target.posts.title;
-						/* profile.address = event.target.address;
-						profile.picture = event.target.picture;  */
+				oifsdff(postsUser) {
+					console.log(postsUser);
 				}
+				
 				handleResponse() {
                     console.log(this.data);
                 }
