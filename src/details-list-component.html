@@ -1,50 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-
+<link rel="import" href="./style-module.html">
 <dom-module id="details-list-component">
     <template>
-        <style>
+        <style include="style-module">
             paper-card{
                 width: 90%;
                 margin: 10px auto;
                 display: grid
-            }
-            .star.orangered{
-                color: orangered;
-            }
-            .header img{
-                width: 50%;
-                display:flex;
-                margin: 0 auto;
-                border-radius: 50%;
-                background-color: white;
-                box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-                -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
-                -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-            }
-            .header h3{
-                text-align: center;
-            }
-            .user__name{
-                cursor: pointer;
-            }
-            .card-actions{
-                padding: 5px 3px;
-            }
-            .card-actions p{
-                align-self: center;
-                flex-wrap: wrap;
-                text-align: center;
-                width: 95%;
-            }
-            .card-actions p a{
-                color:dimgray;
-                font-size: 12px;
-                text-decoration: none;
-                white-space: pre-wrap;      /* CSS3 */   
-                white-space: -moz-pre-wrap; /* Firefox */    
-                white-space: -pre-wrap;     /* Opera <7 */   
-                white-space: -o-pre-wrap;   /* Opera 7 */    
-                word-wrap: break-word;      /* IE */
             }
         </style>
         <template is="dom-repeat" items="{{data}}">
@@ -68,7 +30,7 @@
                             <a href="mailto:[[item.email]]" target="_top">[[item.email]]</a>
                         </p>
                     </div>
-                </paper-card>            
+                </paper-card>
             </template>
         </template>
     </template>
@@ -100,7 +62,7 @@
                     /* profile.address = event.target.address;
                     profile.picture = event.target.picture;  */
             }
-            
+
         }
         customElements.define(DetailsListComponent.is, DetailsListComponent);
         })(window.customElements);

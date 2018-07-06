@@ -3,90 +3,13 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="details-info-component.html">
 <link rel="import" href="details-list-component.html">
-
+<link rel="import" href="./style-module.html">
 <dom-module id="app-shell">
 	<template>
-		<style>
-			*{
-				box-sizing: border-box;
-			}
-			#main-container{
-				display: grid;
-				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-				color: #343434;
-				font-size: 14px;
-				font-weight: 300;
-				line-height: 22px;
-				letter-spacing: .4px;
-				background: #f3f3f3;
-				grid-template-columns: 3fr 1fr;
-			}
-			.card {
-				display: inline-block;
-				box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);
-				/*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
-				margin: 20px;
-				position: relative;
-				margin-bottom: 50px;
-				transition: all .2s ease-in-out;
-				background: #eee;
-			}
-			.card:hover {
-				/*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
-				box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-				margin-bottom: 54px;
-			}
-			.image {
-				height: 200px;
-				opacity: .7;
-				overflow: hidden;
-				transition: all .2s ease-in-out;
-			}
-			.image:hover,
-			.card:hover .image {
-				height: 200px;
-				opacity: 1;
-			}
-			.text {
-				background: #FFF;
-				padding: 20px;
-				min-height: 200px;
-			}
-			.text p {
-				margin-bottom: 0px;
-			}
-			.fab {
-				width: 60px;
-				height: 60px;
-				border-radius: 50%;
-				position: absolute;
-				margin-top: -50px;
-				right: 20px;
-				box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
-				color: #fff;
-				font-size: 48px;
-				line-height: 48px;
-				text-align: center;
-				background: #0066A2;
-				-webkit-transition: -webkit-transform .2s ease-in-out;
-				transition: transform .2s ease-in-out;
-			}
-			.fab:hover {
-				background: #549D3C;
-				cursor: pointer;
-				-ms-transform: rotate(90deg);
-				-webkit-transform: rotate(90deg);
-				transform: rotate(90deg);
-			}
-			details-component{
-			}
-			details-list{
-
-			}
-		</style>
+		<style include="style-module"></style>
 
 		<iron-ajax
-				auto     
+				auto
 				url="https://posts-services.herokuapp.com/users"
 				handle-as="json"
 				on-response="handleResponse"
@@ -95,9 +18,9 @@
 		</iron-ajax>
 
 		<div id="main-container">
-			<details-info-component id="detailsInfo" class="card" posts-user="[[postsUser]]"></details-info-component>
-			<details-list-component data="[[postResponse]]" class="card" user-posts="{{postsUser}}"></details-list-component>
-			
+			<details-info-component id="detailsInfo" class="card-detail" posts-user="[[postsUser]]"></details-info-component>
+			<details-list-component data="[[postResponse]]" class="card-detail" user-posts="{{postsUser}}"></details-list-component>
+
 
 		</div>
 	</template>
@@ -119,7 +42,7 @@
 				oifsdff(postsUser) {
 					console.log(postsUser);
 				}
-				
+
 				handleResponse() {
                     console.log(this.data);
                 }
