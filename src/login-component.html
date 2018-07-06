@@ -8,54 +8,13 @@
 <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/d2l-alert/d2l-alert.html">
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="./style-module.html">
 <dom-module id="login-component">
   <template>
-    <style>
-    :root {
-      --card-color-main: #68cbcb;
-      --text-color-main: #ffffff;
-      --login-color: #072146;
-      --main-color: #5bbeff;
-      /* Input foreground color */
-      --paper-input-container-input-color: #fff;
-      width: 80%;
-      margin: 0 auto;
-    }
-    form {
-      width: 80%;
-      margin: 0 auto;
-    }
-    paper-button {
-      background-color: #2dcdcd;
-    }
-    .--paper-input-container-input-color {
-      color: #ffffff !important;
-    }
-    .container {
-      display: flex;
-      grid-template-columns: 1fr 1fr;
-      margin: 0 auto;
-      width: 80%;
-      flex-direction: row;
-      justify-content: center;
-      text-align:center;
-    }
-    .card {
-      background-color: var(--card-color-main);
-      position: relative;
-      color: var(--text-color-main);
-    }
-    .login-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-color: var(--login-color);
-      position: relative;
-      color: var(--text-color-main);
-      width: 50%;
-    }
-    </style>
+  <style include="style-module"></style>
     <div class="container">
       <div class="card">
         <h2>Rgistrate Hoy</h2>
@@ -66,7 +25,7 @@
         <div class="login">
           <form is="iron-form" id="formLogin" method="post" action="/form/handler">
             <form class="">
-              <paper-input class="input-login" auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value='{{email}}' label="email" required>
+              <paper-input class="input-login" error-message="please type email correct" auto-validate pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value='{{email}}' label="email" required>
                 <label for="input-login">Email</label>
                 <iron-icon icon="mail" slot="prefix"></iron-icon>
               </paper-input>
@@ -77,21 +36,19 @@
               <paper-button raised on-click="submit">
                 Login<iron-icon icon="icons:arrow-forward"></iron-icon>
               </paper-button>
+              <template is="dom-if" if="[[loading]]">
+                <paper-progress  indeterminate class="slow blue" value="10"></paper-progress>
+              </template>
+              <template is="dom-if" if="[[error]]" restamp="true">
+                <d2l-alert type="error" has-close-button>
+                  incorrect username or password
+                </d2l-alert>
+              </template>
             </form>
           </form>
         </div>
       </div>
     </div>
-      <iron-ajax
-      id="submitLogin"
-      url="https://posts-services.herokuapp.com/login"
-      method="POST"
-      body='{{bodyPost}}'
-      handle-as="json"
-      on-response="handleResponse"
-      debounce-duration="300"
-      loading=""
-      ></iron-ajax>
   </template>
   <script>
     (function loginComponent(customElements) {
@@ -119,18 +76,35 @@
           return { 'email': email, 'password': password }
         }
         handleResponse(response) {
+
           if (response) {
+            //console.info(this);
             setTimeout(() =>{
-              this.set('session', true);
+            }, 5000)
+          }
+        }
+        getActive(users) {
+          //console.log(users);
+          for( let user of users) {
+            if(user && user.email == this.email && user.password == this.password) {
+              console.log(user);
               localStorage.email = this.email;
+              localStorage.password = this.password;
+              this.set('session', true);
               this.set('route.page', 'posts');
-            }, 1000)
+            }else {
+              this.set('loading', false);
+              this.set('error', true);
+            }
           }
         }
         submit(event) {
-          console.log('------');
-          this.handleResponse(true);
+          this.set('loading', true);
+          fetch('https://posts-services.herokuapp.com/users')
+          .then(resp => resp.json())
+          .then(users => this.getActive(users));
         }
+
       }
       customElements.define(LoginComponent.is, LoginComponent);
     })(window.customElements);
