@@ -4,68 +4,73 @@
     <template>
         <style>
             paper-card{
-                width: 70%;
+                width: 90%;
                 margin: 10px auto;
                 display: grid
             }
+            .star.orangered{
+                color: orangered;
+            }
+            .header img{
+                width: 50%;
+                display:flex;
+                margin: 0 auto;
+                border-radius: 50%;
+                background-color: white;
+                box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+                -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+                -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+            }
+            .header h3{
+                text-align: center;
+            }
+            .user__name{
+                cursor: pointer;
+            }
+            .card-actions{
+                padding: 5px 3px;
+            }
+            .card-actions p{
+                align-self: center;
+                flex-wrap: wrap;
+                text-align: center;
+                width: 95%;
+            }
+            .card-actions p a{
+                color:dimgray;
+                font-size: 12px;
+                text-decoration: none;
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+            }
         </style>
-        <paper-card image="">
-            <div class="card-content">
-                <div class="cafe-header">
-                    <h2> User 1</h2>
-                <div class="cafe-location cafe-light">
-                    <iron-icon icon="communication:location-on"></iron-icon>
-                    <span>250ft</span>
-                </div>
-                </div>
-                <div class="cafe-rating">
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                </div>
-                <p>$・Italian, Cafe</p>
-                <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
-            </div>
-            <div class="card-actions">
-                <div class="horizontal justified">
-                    <paper-icon-button icon="icons:event"></paper-icon-button>
-                    <paper-button>5:30PM</paper-button>
-                    <paper-button>7:30PM</paper-button>
-                    <paper-button>9:00PM</paper-button>
-                    <paper-button class="cafe-reserve">Reserve</paper-button>
-                </div>
-            </div>
-        </paper-card>
-        <paper-card image="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-card/v2.1.0/paper-card/demo/donuts.png">
-            <div class="card-content">
-                <div class="cafe-header">Cafe Basilico
-                <div class="cafe-location cafe-light">
-                    <iron-icon icon="communication:location-on"></iron-icon>
-                    <span>250ft</span>
-                </div>
-                </div>
-                <div class="cafe-rating">
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                </div>
-                <p>$・Italian, Cafe</p>
-                <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
-            </div>
-            <div class="card-actions">
-                <div class="horizontal justified">
-                    <paper-icon-button icon="icons:event"></paper-icon-button>
-                    <paper-button>5:30PM</paper-button>
-                    <paper-button>7:30PM</paper-button>
-                    <paper-button>9:00PM</paper-button>
-                    <paper-button class="cafe-reserve">Reserve</paper-button>
-                </div>
-            </div>
-        </paper-card>
+        <template is="dom-repeat" items="{{data}}">
+            <template is="dom-if" if="[[item.name]]">
+                <paper-card image="" on-click="change__profile" posts="[[item.posts]]" id="details" >
+                    <div class="card-content">
+                        <div class="header">
+                            <img src="http://www.dipotepede.org/wp-content/uploads/2016/06/Trainer.jpg" alt="" class="imgBorder">
+                            <h3 class="user__name">[[item.name]]</h3>
+                        </div>
+                        <div class="cafe-rating">
+                            <iron-icon class="star orangered" icon="star"></iron-icon>
+                            <iron-icon class="star orangered" icon="star"></iron-icon>
+                            <iron-icon class="star orangered" icon="star"></iron-icon>
+                            <iron-icon class="star" icon="star"></iron-icon>
+                            <iron-icon class="star" icon="star"></iron-icon>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <p>
+                            <a href="mailto:[[item.email]]" target="_top">[[item.email]]</a>
+                        </p>
+                    </div>
+                </paper-card>            
+            </template>
+        </template>
     </template>
     <script>
         (function detailsListComponent(customElements) {
@@ -74,9 +79,28 @@
             static get is() { return 'details-list-component' };
             static get properties() {
                 return {
-                    prop: String
+                    prop: String,
+                    data: Object,
+                    userPosts: {
+                        type: Array,
+                        notify: true
+                    }
                 }
             }
+
+            change__profile(event){
+                console.log(this);
+                console.log(event.currentTarget);
+                    const profile = this.shadowRoot.querySelector('#details');
+                    console.log(profile);
+                    profile.posts = event.currentTarget.posts;
+                    console.log(event.currentTarget.posts);
+                    this.set('userPosts', event.currentTarget.posts);
+                    //profile.postsTitle = event.target.posts[0].title;
+                    /* profile.address = event.target.address;
+                    profile.picture = event.target.picture;  */
+            }
+            
         }
         customElements.define(DetailsListComponent.is, DetailsListComponent);
         })(window.customElements);
