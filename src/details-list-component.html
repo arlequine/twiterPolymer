@@ -18,12 +18,9 @@
                             <h3 class="user__name">[[item.name]]</h3>
                         </div>
                         <div class="cafe-rating">
-
+                          <template is="dom-repeat" items="[[_randomStars()]]" index-as="index">
                             <iron-icon class="star orangered" icon="star"></iron-icon>
-                            <iron-icon class="star orangered" icon="star"></iron-icon>
-                            <iron-icon class="star orangered" icon="star"></iron-icon>
-                            <iron-icon class="star" icon="star"></iron-icon>
-                            <iron-icon class="star" icon="star"></iron-icon>
+                          </template>
                         </div>
                     </div>
                     <div class="card-actions">
@@ -31,7 +28,7 @@
                             <a href="mailto:[[item.email]]" target="_top">[[item.email]]</a>
                         </p>
                     </div>
-                </paper-card>            
+                </paper-card>
             </template>
         </template>
     </template>
@@ -69,11 +66,16 @@
                     profile.picture = event.target.picture;  */
             }
             _randomStars() {
-                const redStars = parseInt(Math.random() * 5);
-                console.log(this.Backgrounds[randomBg]);
-                return `/img/${this.Backgrounds[randomBg]}`;
+              let max = 5;
+                const redStars = parseInt(Math.random() * max );
+                let arr=[];
+                for (var i = 0; i < redStars; i++) {
+                  arr.push(`star`)
+                }
+                return arr;
+                console.log(redStars);
             }
-            
+
         }
         customElements.define(DetailsListComponent.is, DetailsListComponent);
         })(window.customElements);
