@@ -18,7 +18,7 @@
         <a href="#" on-click="_newPost" class="push_button red">New Post</a>
         <template is="dom-repeat" items="{{data}}">
             <template is="dom-if" if="[[item.name]]">
-                <paper-card image="" on-click="_change__profile" posts="[[item.posts]]" id="details" >
+                <paper-card image="" on-click="_change__profile" posts="[[item.posts]]" class="details" >
                     <div class="card-content">
                         <div class="header">
                             <img src="http://www.dipotepede.org/wp-content/uploads/2016/06/Trainer.jpg" alt="" class="imgBorder">
@@ -71,8 +71,13 @@
             _change__profile(event){
                 //console.log(this);
                 //console.log(event.currentTarget);
-                    const profile = this.shadowRoot.querySelector('#details');
-                        profil.style.background = red;
+                    const profile = this.shadowRoot.querySelectorAll('.details');
+                    for(let card of profile ) {
+                        card.classList.remove('red');
+
+                    }
+                    event.currentTarget.classList.add('red');
+                        
                     //console.log(profile);
                     profile.posts = event.currentTarget.posts;
                     //console.log(event.currentTarget.posts);
