@@ -11,73 +11,10 @@
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../bower_components/d2l-alert/d2l-alert.html">
 <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="./style-module.html">
 <dom-module id="login-component">
   <template>
-    <style>
-    :root {
-      --card-color-main: #68cbcb;
-      --text-color-main: #ffffff;
-      --login-color: #072146;
-      --main-color: #5bbeff;
-      --bgd-error: #f8d7da;
-      --error-text: #721c24;
-      /* Input foreground color */
-      --paper-input-container-input-color: #fff;
-      width: 80%;
-      margin: 0 auto;
-    }
-    form {
-      width: 80%;
-      margin: 0 auto;
-    }
-    paper-button {
-      background-color: #2dcdcd;
-    }
-    .--paper-input-container-input-color {
-      color: #ffffff !important;
-    }
-    .container {
-      display: flex;
-      grid-template-columns: 1fr 1fr;
-      margin: 0 auto;
-      width: 80%;
-      flex-direction: row;
-      justify-content: center;
-      text-align:center;
-    }
-    .card {
-      background-color: var(--card-color-main);
-      position: relative;
-      color: var(--text-color-main);
-    }
-    .login-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-color: var(--login-color);
-      position: relative;
-      color: var(--text-color-main);
-      width: 50%;
-    }
-    paper-progress.slow {
-     --paper-progress-indeterminate-cycle-duration: 20s;
-    }
-    paper-progress.blue {
-      --paper-progress-active-color: var(--paper-light-blue-500);
-      --paper-progress-secondary-color: var(--paper-light-blue-100);
-    }
-    paper-progress{
-        width: 100%;
-    }
-    d2l-alert {
-      background-color: var(--bgd-error);
-      color: var(--error-text);
-    }
-    d2l-alert > button {
-      background-color: var(--bgd-error);
-      color: var(--error-text);
-    }
-    </style>
+  <style include="style-module"></style>
     <div class="container">
       <div class="card">
         <h2>Rgistrate Hoy</h2>
