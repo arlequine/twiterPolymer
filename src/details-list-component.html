@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="./style-module.html">
 <dom-module id="details-list-component">
     <template>
@@ -8,6 +9,11 @@
                 margin: 10px auto;
                 display: grid
             }
+            :root {
+              --paper-input-container-input-color: #000;
+            }
+
+
         </style>
         <a href="#" on-click="_newPost" class="push_button red">New Post</a>
         <template is="dom-repeat" items="{{data}}">
@@ -32,9 +38,9 @@
                 </paper-card>
             </template>
         </template>
-        <paper-dialog id="modal" modal>
-          <paper-input label="Title" value="{{titlePost}}"></paper-input>
-          <paper-input label="Content" value="{{contentPost}}"></paper-input>
+        <paper-dialog id="modal" modal >
+          <paper-input class="black" label="Title" value="{{titlePost}}" char-counter maxlength="140"></paper-input>
+          <paper-input label="Post" value="{{contentPost}}" char-counter maxlength="240"></paper-input>
           <div class="buttons">
             <div class="buttons">
             <paper-button dialog-dismiss>Cancel</paper-button>
@@ -64,8 +70,9 @@
 
             _change__profile(event){
                 //console.log(this);
-                console.log(event.currentTarget);
+                //console.log(event.currentTarget);
                     const profile = this.shadowRoot.querySelector('#details');
+                        profil.style.background = red;
                     //console.log(profile);
                     profile.posts = event.currentTarget.posts;
                     //console.log(event.currentTarget.posts);
@@ -75,7 +82,7 @@
                     /* profile.address = event.target.address;
                     profile.picture = event.target.picture;  */
             }
-            _newContact(e) {
+            _newPost(e) {
               this.$.modal.open();
             }
             _saveContact(e) {

@@ -14,7 +14,8 @@
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
     "iron-ajax": "PolymerElements/iron-ajax#^2.1.3",
     "paper-progress": "PolymerElements/paper-progress#^2.1.1",
-    "d2l-alert": "BrightspaceUI/alert#^3.0.1"
+    "d2l-alert": "BrightspaceUI/alert#^3.0.1",
+    "paper-dialog": "PolymerElements/paper-dialog#^2.1.1"
   },
   "devDependencies": {
     "web-componentsjs": "webcomponents/webcomponentsjs#^1.0.0"
