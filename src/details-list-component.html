@@ -57,8 +57,9 @@
 
             _change__profile(event){
                 //console.log(this);
-                console.log(event.currentTarget);
+                //console.log(event.currentTarget);
                     const profile = this.shadowRoot.querySelector('#details');
+                        profil.style.background = red;
                     //console.log(profile);
                     profile.posts = event.currentTarget.posts;
                     //console.log(event.currentTarget.posts);
@@ -70,7 +71,7 @@
             }
             _randomStars() {
                 const redStars = parseInt(Math.random() * 5);
-                console.log(this.Backgrounds[randomBg]);
+                //console.log(this.Backgrounds[randomBg]);
                 return `/img/${this.Backgrounds[randomBg]}`;
             }
             
