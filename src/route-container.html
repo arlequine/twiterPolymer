@@ -10,14 +10,13 @@
 
     </style>
     <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}">
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" use-hash-as-path>
     </app-route>
     <iron-pages selected="[[page]]" attr-for-selected="page" fallback-selection="login">
       <section page="login">
           <login-component session="{{session}}" route="{{routeData}}" ></login-component>
       </section>
       <section page="posts">
-          <h1>post</h1>
           <app-shell></app-shell>
       </section>
       </section>

@@ -128,30 +128,34 @@
                 text-decoration: none;
             }
         </style>
-        <paper-card>
-            <div class="post-module">
-                    <div class="thumbnail">
-                        <div class="date">
-                            <div class="day">27</div>
-                            <div class="month">Mar</div>
-                        </div>
-                        <img src="/img/cdmx.jpeg">
-                    </div>
-                        <!-- Post Content-->
-                    <div class="post-content">
-                        <div class="category">Photos</div>
-                            <h1 class="title">City Lights in New York</h1>
-                            <h2 class="sub_title">The city that never sleeps.</h2>
-                            <p class="description" style="display: none; height: 100px; opacity: 1;">
-                                New York, the largest city in the U.S., is an architectural marvel with plenty of 
-                                historic monuments, magnificent buildings and countless dazzling skyscrapers.</p>
-                            <div class="post-meta card-actions">
-                                <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
-                                <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
-                            </div>
-                        </div>
-                    </div>
-        </paper-card>
+                <template is="dom-repeat" items="{{data}}" as="user">
+                        <h1>First name: <span>{{user.name}}</span></h1>
+                        <template is="dom-repeat" items="{{user.posts}}" as="posts" >
+                            <paper-card>
+                                <div class="post-module">
+                                        <div class="thumbnail">
+                                            <div class="date">
+                                                <div class="day">27</div>
+                                                <div class="month">Mar</div>
+                                            </div>
+                                            <img src="/img/cdmx.jpeg">
+                                        </div>
+                                            <!-- Post Content-->
+                                        <div class="post-content">
+                                            <div class="category">{{posts.date}}</div>
+                                                <h1 class="title">{{posts.title}}</h1>
+                                                <p class="description" style="display: none; height: 100px; opacity: 1;">
+                                                    {{posts.body}}</p>
+                                                <div class="post-meta card-actions">
+                                                    <span class="timestamp"><i class="fa fa-clock-o"></i> 6 mins ago</span>
+                                                    <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </paper-card>
+                        </template>
+                </template>
+
         <paper-card >
             <div class="post-module">
                     <div class="thumbnail">
@@ -164,7 +168,7 @@
                     </div>
                         <!-- Post Content-->
                     <div class="post-content">
-                        <div class="category"></div>
+                        <div class="category">Category</div>
                             <h1 class="title">City Lights in New York</h1>
                             <h2 class="sub_title">The city that never sleeps.</h2>
                             <p class="description" style="display: none; height: 100px; opacity: 1;">
@@ -210,8 +214,9 @@
             static get is() { return 'details-info-component' };
             static get properties() {
                 return {
-                    prop: String
-                }
+                    prop: String,
+                    data:  Object
+                    }
             }
         }
         customElements.define(DetailsInfoComponent.is, DetailsInfoComponent);
