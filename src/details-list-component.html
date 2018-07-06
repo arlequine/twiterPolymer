@@ -9,6 +9,7 @@
                 display: grid
             }
         </style>
+        <a href="#" on-click="_newPost" class="push_button red">New Post</a>
         <template is="dom-repeat" items="{{data}}">
             <template is="dom-if" if="[[item.name]]">
                 <paper-card image="" on-click="_change__profile" posts="[[item.posts]]" id="details" >
@@ -31,6 +32,15 @@
                 </paper-card>
             </template>
         </template>
+        <paper-dialog id="modal" modal>
+          <paper-input label="Title" value="{{titlePost}}"></paper-input>
+          <paper-input label="Content" value="{{contentPost}}"></paper-input>
+          <div class="buttons">
+            <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button autofocus on-click="_saveContact">Aceptar</paper-button>
+          </div>
+        </paper-dialog>
     </template>
     <script>
         (function detailsListComponent(customElements) {
@@ -64,6 +74,17 @@
                     //profile.postsTitle = event.target.posts[0].title;
                     /* profile.address = event.target.address;
                     profile.picture = event.target.picture;  */
+            }
+            _newContact(e) {
+              this.$.modal.open();
+            }
+            _saveContact(e) {
+              this.push('contactsList', {
+                title: this.titlePost,
+                phone: this.contentPost,
+                img: 'user.png'
+              });
+              this.$.modal.close();
             }
             _randomStars() {
               let max = 5;
